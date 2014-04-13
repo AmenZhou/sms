@@ -1,0 +1,9 @@
+<h1>SMS SEND PAGE</h1>
+<%= form_tag root_path do %>
+  <%= label_tag :send_number, "Send Number" %>
+  <%= text_field_tag :send_number %>
+  <br/>
+  <%= label_tag :messeg_body, "Message Body" %>
+  <%= text_area_tag :messege_body %>
+  <%= submit_tag "SEND" %>
+<% end %>

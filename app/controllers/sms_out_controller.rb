@@ -4,6 +4,8 @@ class SmsOutController < ApplicationController
 
   def msg_send
     Phone.send_msg params[:message_body], params[:send_number]
-    redirect_to action: :index, notice: 'Message Send'
+    flash[:notice] = 'Message Send 2'
+    flash.keep
+    redirect_to action: :index
   end
 end

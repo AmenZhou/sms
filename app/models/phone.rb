@@ -5,37 +5,35 @@ class Phone < ActiveRecord::Base
   def self.send_msg content, to_number
     account_sid = ENV['TWILIO_ID']
     auth_token = ENV['TWILIO_TOKEN']
-    max = 160
+    max = 69
     to_numbers = to_number.split(" ")
     notice_hash = Hash.new
     notice_arr = Array.new
+    content_temp = content
 
-    to_numbers.each do |to_number|
-      if content.length > max
-        while(content.length > max)
+    to_numbers.each do |number|
+      while(content.length > 0)
+        cont_split = String.new
+
+        if content.length > max
           cont_split = content[0..(max-1)]
           content = content[max..-1]
-
-          @client = Twilio::REST::Client.new account_sid, auth_token
-          sms = @client.account.sms.messages.create(:body => cont_split,
-                                                    :to => to_number,
-                                                    :from => ENV['TWILIO_PHONE'])
-          puts sms.body 
-          notice_hash[:to] = to_number
-          notice_hash[:body] = cont_split
-          notice_arr << notice_hash
+        else
+          cont_split = content
+          content = ""
         end
-      else
         @client = Twilio::REST::Client.new account_sid, auth_token
-        sms = @client.account.sms.messages.create(:body => content,
-                                                  :to => to_number,
+        sms = @client.account.sms.messages.create(:body => cont_split,
+                                                  :to => number,
                                                   :from => ENV['TWILIO_PHONE'])
-        puts sms.body
+        puts sms.body 
         notice_hash[:to] = to_number
-        notice_hash[:body] = content
+        notice_hash[:body] = cont_split
         notice_arr << notice_hash
+        sleep(1)
       end
+      content = content_temp
     end
     notice_arr
-  end    
-end
+  end
+end    

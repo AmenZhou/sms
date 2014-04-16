@@ -20,18 +20,18 @@ class Phone < ActiveRecord::Base
           cont_split = content
           content = ""
         end
-        #@client = Twilio::REST::Client.new account_sid, auth_token
-        #sms = @client.account.sms.messages.create(:body => cont_split,
-        #                                          :to => number,
-        #                                          :from => ENV['TWILIO_PHONE'])
-        #puts sms.body 
+        @client = Twilio::REST::Client.new account_sid, auth_token
+        sms = @client.account.sms.messages.create(:body => cont_split,
+                                                  :to => number,
+                                                  :from => ENV['TWILIO_PHONE'])
+        puts sms.body 
 
         notice_hash = Hash.new
         notice_hash[:to] = number
         notice_hash[:body] = cont_split
         notice_arr << notice_hash
         puts notice_hash
-        sleep(1)
+        sleep(2)
       end
       content = content_temp
     end

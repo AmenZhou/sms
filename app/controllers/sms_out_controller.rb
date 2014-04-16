@@ -3,8 +3,11 @@ class SmsOutController < ApplicationController
   end
 
   def msg_send
-    Phone.send_msg params[:message_body], params[:send_number]
-    flash[:notice] = 'Message Send 2'
+    notice_arr = Phone.send_msg params[:message_body], params[:send_number]
+    flash[:notice] = String.new
+    notice_arr.each do |notice|
+      flash[:notice] << "Send message to #{notice[:to]}, message content is: #{notice[:body]}.||  "
+    end
     flash.keep
     redirect_to action: :index
   end

@@ -9,7 +9,9 @@
 <body>
 
 <div>
-   <%= flash[:notice]%>
+   <%-# flash[:notice]%>
+   <p class="notice"><%= notice %></p>
+   <p class="alert"><%= alert %></p>
 </div>
 
 <%= yield %>

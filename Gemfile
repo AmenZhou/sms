@@ -49,3 +49,5 @@ gem 'debugger', group: [:development, :test]
 gem 'pg', group: [:production]
 
 gem 'resque'
+
+gem 'devise'

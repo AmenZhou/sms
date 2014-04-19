@@ -1,4 +1,5 @@
 Sms::Application.routes.draw do
+  devise_for :admins
   root "sms_out#index"
   resources :phones
   post 'send', to: 'sms_out#msg_send'

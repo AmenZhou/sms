@@ -1,9 +1,14 @@
 module SmsJob
   @queue = :high
+  
   def self.perform content, to_number
     #debugger
     #puts 'abc'
     #debugger
+    pattern = /(\d{10}\s?)+/
+    unless pattern.match(to_number)
+      return puts "invalidate number"
+    end
     account_sid = ENV['TWILIO_ID']
     auth_token = ENV['TWILIO_TOKEN']
     max = 69
@@ -32,11 +37,10 @@ module SmsJob
         notice_hash[:body] = cont_split
         notice_arr << notice_hash
         puts notice_hash
-        sleep(2)
+        sleep(5)
       end
       content = content_temp
     end
       puts notice_arr
-    notice_arr
   end
 end

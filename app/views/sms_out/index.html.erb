@@ -1,0 +1,13 @@
+<h1>SMS SEND PAGE</h1>
+<%= form_tag send_path, method: :post  do %>
+  <%= label_tag :send_number, "Send Number" %>
+  <%= text_field_tag :send_number, nil, :size => 50 %>
+  <%= label_tag :send_number, "(Use blank to divide each number. e.g. 1111111111 2222222222 3333333333)" %>
+  <br/>
+  <%= label_tag :message_body, "Message Body" %>
+  <%= text_area_tag :message_body, nil, {:rows => 10, :cols => 50}%>
+  <%= label_tag :message_body, "The content size bigger then 160 chars, it will be divided to multi messages" %>
+  <br/>
+  <%= submit_tag "SEND" %>
+
+<% end %>

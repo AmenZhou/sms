@@ -1,10 +1,16 @@
 require 'rubygems'          # This line not needed for ruby > 1.8
 require 'twilio-ruby'
 class Phone < ActiveRecord::Base
- 
- def self.send_msg content, to_number
-    pattern = /(\d{10}\s?)+/
-    return puts "invalidate number" unless pattern.match(to_number)
+  def self.phone_validation?(number)
+    pattern = /(\d{3}.?\d{3}.?\d{4}\s?)+/
+    if pattern.match(number).to_s != number
+      puts "invalid phone number"
+      return false
+    end
+    true
+  end
+  
+  def self.sms_send content, to_number
     account_sid = ENV['TWILIO_ID']
     auth_token = ENV['TWILIO_TOKEN']
     max = 69
@@ -13,8 +19,8 @@ class Phone < ActiveRecord::Base
     content_temp = content
 
     to_numbers.each do |number|
+      next unless phone_validation?(number)
       while(content.length > 0)
-
         if content.length > max
           cont_split = content[0..(max-1)]
           content = content[max..-1]
@@ -33,12 +39,11 @@ class Phone < ActiveRecord::Base
         notice_hash[:body] = cont_split
         notice_arr << notice_hash
         puts notice_hash
-        sleep(10)
+        sleep(5)
       end
       content = content_temp
     end
-      puts notice_arr
-    notice_arr
-    
-  end
+      #puts notice_arr
+    #notice_arr
+  end 
 end    

@@ -1,11 +1,16 @@
 module SmsJob
   @queue = :high
+  
+  def self.phone_validation?(number)
+    pattern = /(\d{3}.?\d{3}.?\d{4}\s?)+/
+    if pattern.match(number).to_s != number
+      puts "invalid phone number"
+      return false
+    end
+    true
+  end
+  
   def self.perform content, to_number
-    #debugger
-    #puts 'abc'
-    #debugger
-    pattern = /(\d{10}\s?)+/                                                                                                                                             
-    return puts "invalidate number" unless pattern.match(to_number)    
     account_sid = ENV['TWILIO_ID']
     auth_token = ENV['TWILIO_TOKEN']
     max = 69
@@ -15,7 +20,7 @@ module SmsJob
 
     to_numbers.each do |number|
       while(content.length > 0)
-
+        next unless phone_validation?(number)
         if content.length > max
           cont_split = content[0..(max-1)]
           content = content[max..-1]
@@ -38,7 +43,7 @@ module SmsJob
       end
       content = content_temp
     end
-      puts notice_arr
-    notice_arr
+   #   puts notice_arr
+   # notice_arr
   end
 end

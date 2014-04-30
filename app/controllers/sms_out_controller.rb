@@ -12,4 +12,8 @@ class SmsOutController < ApplicationController
     flash.keep
     redirect_to action: :index
   end
+  
+  def message_list
+    @messages = Phone.get_messages
+  end
 end

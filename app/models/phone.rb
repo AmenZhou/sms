@@ -9,7 +9,7 @@ class Phone < ActiveRecord::Base
     end
     true
   end
-  
+  #this method is instead of sms_job in works directory 
   def self.sms_send content, to_number
     account_sid = ENV['TWILIO_ID']
     auth_token = ENV['TWILIO_TOKEN']
@@ -46,4 +46,15 @@ class Phone < ActiveRecord::Base
       #puts notice_arr
     #notice_arr
   end 
+  
+  #
+  def self.get_messages    
+    account_sid = ENV['TWILIO_ID']
+    auth_token = ENV['TWILIO_TOKEN']
+    @client = Twilio::REST::Client.new account_sid, auth_token
+    
+    # Loop over messages and print out a property for each one
+    messages = @client.account.messages.list
+    messages
+  end    
 end    

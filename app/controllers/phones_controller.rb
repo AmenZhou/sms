@@ -1,6 +1,9 @@
 class PhonesController < ApplicationController
   before_action :set_phone, only: [:show, :edit, :update, :destroy]
+<<<<<<< HEAD
 
+=======
+>>>>>>> 82fa702896acec503280fbcfe158d71c9846942c
   # GET /phones
   # GET /phones.json
   def index

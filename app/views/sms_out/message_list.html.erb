@@ -1,0 +1,20 @@
+<table>
+  <thead>
+    <th>Phone Num</th>
+    <th>Message Content</th>
+    <th>Deliver Date</th>
+    <th>Deliver Status</th>
+    
+  </thead>
+  
+  <tbody>
+    <% @messages.each do |message| %>
+    <tr>
+      <td><%= message.to %></td>
+      <td><%= message.body %></td>
+      <td><%= message.date_created %></td>
+      <td><%= message.status %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>

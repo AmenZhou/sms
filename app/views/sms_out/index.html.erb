@@ -1,13 +1,14 @@
 <h1>SMS SEND PAGE</h1>
+<%= link_to "点击查看短信发送历史记录", message_list_path %>
 <%= form_tag send_path, method: :post  do %>
   <%= label_tag :send_number, "Send Number" %>
   <%= text_field_tag :send_number, nil, :size => 50 %>
-  <%= label_tag :send_number, "(Use blank to divide each number. e.g. 1111111111 2222222222 3333333333)" %>
+  <%= label_tag :send_number, "多个电话号码请用空格分开 e.g.'1111111111 222-222-2222'" %>
   <br/>
   <%= label_tag :message_body, "Message Body" %>
   <%= text_area_tag :message_body, nil, {:rows => 10, :cols => 50}%>
-  <%= label_tag :message_body, "The content size bigger then 160 chars, it will be divided to multi messages" %>
+  <%= label_tag :message_body, "短信内容超过69个字，会自动切分成多条短信发送。" %>
   <br/>
   <%= submit_tag "SEND" %>
-
 <% end %>
+

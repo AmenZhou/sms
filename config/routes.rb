@@ -3,6 +3,7 @@ Sms::Application.routes.draw do
   root "sms_out#index"
   resources :phones
   post 'send', to: 'sms_out#msg_send'
+  get 'message_list', to: 'sms_out#message_list' 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

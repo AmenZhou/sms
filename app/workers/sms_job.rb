@@ -23,8 +23,8 @@ module SmsJob
         next unless phone_validation?(number)
 
         if content.length > max
-          cont_split = content[0..(max-1)]
-          content = content[max..-1]
+          cont_split = content[0..max]
+          content = content[max...-1]
         else
           cont_split = content
           content = ""

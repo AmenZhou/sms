@@ -51,3 +51,5 @@ gem 'pg', group: [:production]
 gem 'resque'
 
 gem 'devise'
+
+gem 'redis'

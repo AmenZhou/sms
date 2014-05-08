@@ -2,7 +2,8 @@
 <%= link_to "返回发送界面", root_path%>
 <table border=1>
   <thead>
-    <th>接受电话</th>
+    <th>发送号码</th>
+    <th>接收号码</th>
     <th>短信内容</th>
     <th>发送日期</th>
     <th>发送状态</th>
@@ -11,7 +12,12 @@
   
   <tbody>
     <% @messages.each do |message| %>
+    <% if message.status == "received"%>
+    <tr bgcolor="blue">
+    <% else %>
     <tr>
+    <% end%>
+      <td><%= message.from %></td>
       <td><%= message.to %></td>
       <td><%= message.body %></td>
       <td><%= message.date_created %></td>

@@ -11,7 +11,10 @@ class SmsOutController < ApplicationController
       flash[:notice] << "Send message to #{notice[:to]}, message content is: #{notice[:body]}.||  "
     end
     flash.keep
-    redirect_to action: :index
+    respond_to do |format|
+      format.html{ redirect_to action: :index }
+      format.js
+    end
   end
   
   def message_list

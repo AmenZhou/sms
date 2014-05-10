@@ -1,6 +1,6 @@
 <h1>短信发送界面</h1>
 <%= link_to "点击查看短信发送历史记录", message_list_path %>
-<%= form_tag send_path, method: :post  do %>
+<%= form_tag send_path, method: :post, remote: true  do %>
   <%= label_tag :send_number, "接收号码" %>
   <%= text_field_tag :send_number, nil, :size => 50 %>
   <%= label_tag :send_number, "多个电话号码请用空格分开 e.g.'1111111111 222-222-2222'" %>

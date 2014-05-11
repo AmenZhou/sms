@@ -9,6 +9,12 @@
   <%= text_area_tag :message_body, nil, {:rows => 10, :cols => 50}%>
   <%= label_tag :message_body, "短信内容超过69个字，会自动切分成多条短信发送。" %>
   <br/>
-  <%= submit_tag "发送" %>
+<%= submit_tag "发送", onClick:"submit_click()" %>
 <% end %>
 
+<script>
+  function submit_click(){
+    var notice = document.getElementsByClassName("notice");
+    notice[0].innerHTML = "<font color=red>短信正在发送</font>";
+  }
+</script>

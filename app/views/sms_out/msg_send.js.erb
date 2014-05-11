@@ -1,1 +1,4 @@
-$('.notice').append('<%= flash[:notice]%>')
+//$('.notice').append('<%= flash[:notice].html_safe%>')
+var notice = document.getElementsByClassName("notice");
+notice[0].innerHTML = "<font color='red'>发送完成</font><br/><%= flash[:notice].html_safe%>";
+

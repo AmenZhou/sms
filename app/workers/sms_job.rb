@@ -17,7 +17,8 @@ module SmsJob
     to_numbers = to_number.split(" ")
     notice_arr = Array.new
     content_temp = content
-
+    message_count = 0
+    
    to_numbers.each do |number|
       unless phone_validation?(number)
         #notice << "错误：电话号码：#{number}--电话号码格式不对<br/>"
@@ -39,7 +40,12 @@ module SmsJob
                                                  :to => number,
                                                 :from => ENV['TWILIO_PHONE'])
         puts "接收号码: #{number}, 短信内容: #{cont_split}<br/>" 
-
+        message_count += 1
+        
+        if message_count == 50
+          SmsOut.save_messages 
+          message_count = 0
+        end
         #notice << "接收号码: #{number}, 短信内容: #{cont_split}<br/>"
         sleep(5)
       end

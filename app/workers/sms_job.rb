@@ -18,31 +18,33 @@ module SmsJob
     notice_arr = Array.new
     content_temp = content
 
-    to_numbers.each do |number|
+   to_numbers.each do |number|
+      unless phone_validation?(number)
+        #notice << "错误：电话号码：#{number}--电话号码格式不对<br/>"
+        puts "错误：电话号码：#{number}--电话号码格式不对<br/>"
+        next
+      end
       while(content.length > 0)
-        next unless phone_validation?(number)
 
         if content.length > max
-          cont_split = content[0..max]
-          content = content[max...-1]
+          cont_split = content[0...max]
+          content = content[max..-1]
         else
           cont_split = content
           content = ""
         end
+
         @client = Twilio::REST::Client.new account_sid, auth_token
         sms = @client.account.sms.messages.create(:body => cont_split,
-                                                  :to => number,
-                                                  :from => ENV['TWILIO_PHONE'])
-        puts sms.body 
+                                                 :to => number,
+                                                :from => ENV['TWILIO_PHONE'])
+        puts "接收号码: #{number}, 短信内容: #{cont_split}<br/>" 
 
-        notice_hash = Hash.new
-        notice_hash[:to] = number
-        notice_hash[:body] = cont_split
-        notice_arr << notice_hash
-        puts notice_hash
+        #notice << "接收号码: #{number}, 短信内容: #{cont_split}<br/>"
         sleep(5)
       end
       content = content_temp
     end
+   # notice
   end
 end

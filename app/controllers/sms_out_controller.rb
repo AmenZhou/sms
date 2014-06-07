@@ -8,10 +8,10 @@ class SmsOutController < ApplicationController
     #flash[:notice] = Phone.sms_send params[:message_body], params[:send_number]
     flash.keep
     #flash[:notice] = '正在发送...发送时间比较长，耐心等待。'#String.new
-    #respond_to do |format|
-    #  format.html{ redirect_to action: :index }
-    #  format.js
-    #end
+    respond_to do |format|
+      format.html{ redirect_to action: :index }
+      format.js
+    end
     #flash[:notice] = ""
   end
   

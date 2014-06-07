@@ -42,15 +42,16 @@ module SmsJob
         puts "接收号码: #{number}, 短信内容: #{cont_split}<br/>" 
         message_count += 1
         
-        if message_count == 50
-          SmsOut.save_messages 
-          message_count = 0
-        end
+        #if message_count >= 50
+        #  SmsOut.save_messages 
+        #  message_count = 0
+        #end
         #notice << "接收号码: #{number}, 短信内容: #{cont_split}<br/>"
         sleep(5)
       end
       content = content_temp
     end
+  #  SmsOut.save_messages
    # notice
   end
 end

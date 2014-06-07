@@ -16,6 +16,6 @@ class SmsOutController < ApplicationController
   end
   
   def message_list
-    @messages = SmsOut.order('created_at').all
+    @messages = SmsOut.order('send_date desc').all
   end
 end

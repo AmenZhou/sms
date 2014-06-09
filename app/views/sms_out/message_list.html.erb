@@ -7,6 +7,7 @@
     <th>短信内容</th>
     <th>发送日期</th>
     <th>发送状态</th>
+    <th>Is Blocked</th>
     <th>Edit</th>
     <th>Delete</th>
   </thead>
@@ -23,6 +24,7 @@
       <td><%= message.content %></td>
       <td><%= (message.send_date- 4.hour).strftime('%c')  %></td>
       <td><%= message.status %></td>
+      <td><%= message.is_block %></td>
       <td><%= link_to 'Edit', edit_sms_out_path(message) %></td>
       <td><%= link_to 'Destroy', message, method: :delete, data: { confirm: 'Are you sure?' } %></td>
     </tr>

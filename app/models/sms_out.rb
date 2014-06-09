@@ -39,4 +39,20 @@ class SmsOut < ActiveRecord::Base
     
     return message
   end
+  
+  def self.is_number_blocked?(number)
+    pattern = /[^0-9]/
+    number = number.gsub(pattern, "")
+    number.insert(0, '+1')
+    puts number
+    block_message = SmsOut.where(from:number, is_block:true)
+    
+    if block_message.count == 0
+      block_message = SmsOut.where(to:number, is_block:true)
+    end
+    
+    return true unless block_message.count == 0
+    
+    return false
+  end
 end

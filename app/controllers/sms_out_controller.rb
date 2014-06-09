@@ -29,6 +29,10 @@ class SmsOutController < ApplicationController
   end
   
   def destroy
+    @message.destroy
+    respond_to do |format|
+      format.html { redirect_to message_list_url }
+    end
   end
   
   def msg_send

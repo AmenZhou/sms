@@ -18,6 +18,7 @@ module SmsJob
     notice_arr = Array.new
     content_temp = content
     message_count = 0
+    url = 'http://amen-rails-65165.use1.nitrousbox.com/'
     
    to_numbers.each do |number|
       unless phone_validation?(number)
@@ -38,15 +39,17 @@ module SmsJob
         @client = Twilio::REST::Client.new account_sid, auth_token
         sms = @client.account.sms.messages.create(:body => cont_split,
                                                  :to => number,
-                                                :from => ENV['TWILIO_PHONE'])
+                                                :from => ENV['TWILIO_PHONE'],
+          :status_callback => url + 'send_callback/')
         puts "接收号码: #{number}, 短信内容: #{cont_split}<br/>" 
-        message_count += 1
+        #message_count += 1
         
         #if message_count >= 50
         #  SmsOut.save_messages 
         #  message_count = 0
         #end
         #notice << "接收号码: #{number}, 短信内容: #{cont_split}<br/>"
+        
         sleep(5)
       end
       content = content_temp

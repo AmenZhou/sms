@@ -1,6 +1,6 @@
 class SmsOut < ActiveRecord::Base
   def self.save_messages
-    remote_messages = Phone.get_messages
+    remote_messages = get_messages
     local_messages = SmsOut.order('created_at desc').limit(50)
     
     remote_messages.each do |remote|
@@ -13,5 +13,30 @@ class SmsOut < ActiveRecord::Base
       end
       SmsOut.create(message_id:remote.sid, from:remote.from, to:remote.to, content:remote.body, send_date:remote.date_sent, status:remote.status) unless is_exist
     end
+  end
+  
+   def self.get_messages    
+    account_sid = ENV['TWILIO_ID']
+    auth_token = ENV['TWILIO_TOKEN']
+    @client = Twilio::REST::Client.new account_sid, auth_token
+
+    # Loop over messages and print out a property for each one
+   # messages = @client.account.messages.list
+   # messages
+    messages = []
+    @client.account.messages.list({ to: '+16699995985'}).each do |message| 
+      messages <<  message
+      puts message.body
+    end
+  end   
+  
+  def self.get_message_by_sid(sid)
+    account_sid = ENV['TWILIO_ID']
+    auth_token = ENV['TWILIO_TOKEN']
+    @client = Twilio::REST::Client.new account_sid, auth_token
+    
+    message = @client.account.messages.get(sid)
+    
+    return message
   end
 end

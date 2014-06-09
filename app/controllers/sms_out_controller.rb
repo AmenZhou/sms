@@ -1,4 +1,6 @@
 class SmsOutController < ApplicationController
+  skip_before_filter :verify_authenticity_token, only: :send_callback
+  before_action :authenticate_admin!, except: :send_callback
   def index
   end
 
@@ -19,4 +21,11 @@ class SmsOutController < ApplicationController
     SmsOut.save_messages
     @messages = SmsOut.order('send_date desc').all
   end
+  
+  def send_callback
+    message = SmsOut.get_message_by_sid(params[:SmsSid])
+    SmsOut.create(message_id:message.sid, from:message.from, to:message.to, content:message.body, status:message.status, send_date:message.date_sent)
+  end
+  
+  
 end

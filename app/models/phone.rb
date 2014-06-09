@@ -1,6 +1,7 @@
 require 'rubygems'          # This line not needed for ruby > 1.8
 require 'twilio-ruby'
 class Phone < ActiveRecord::Base
+=begin
   def self.phone_validation?(number)
     pattern = /(\d{3}.?\d{3}.?\d{4}\s?)+/
     if pattern.match(number).to_s != number
@@ -61,5 +62,17 @@ class Phone < ActiveRecord::Base
       puts message.body
     end
   end   
+  
+  def self.get_message_by_sid(sid)
+    account_sid = ENV['TWILIO_ID']
+    auth_token = ENV['TWILIO_TOKEN']
+    @client = Twilio::REST::Client.new account_sid, auth_token
+    
+    message = @client.account.messages.get(sid)
+    
+    return message
+  end
+__END__
 end  
+
 

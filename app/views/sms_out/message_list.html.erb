@@ -23,7 +23,6 @@
       <td><%= message.content %></td>
       <td><%= (message.send_date- 4.hour).strftime('%c')  %></td>
       <td><%= message.status %></td>
-      <td><%= link_to Edit, edit_sms_out_path(message)%>
     </tr>
     <% end %>
   </tbody>

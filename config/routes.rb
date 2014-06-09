@@ -2,6 +2,8 @@ Sms::Application.routes.draw do
   devise_for :admins
   root "sms_out#index"
   resources :phones
+  
+  resources :sms_out
   post 'send', to: 'sms_out#msg_send'
   get 'message_list', to: 'sms_out#message_list' 
   post 'send_callback', to: 'sms_out#send_callback'

@@ -53,7 +53,13 @@ class Phone < ActiveRecord::Base
     @client = Twilio::REST::Client.new account_sid, auth_token
 
     # Loop over messages and print out a property for each one
-    messages = @client.account.messages.list
-    messages
-  end    
+   # messages = @client.account.messages.list
+   # messages
+    messages = []
+    @client.account.messages.list({ to: '+16699995985'}).each do |message| 
+      messages <<  message
+      puts message.body
+    end
+  end   
 end  
+

@@ -16,6 +16,7 @@ class SmsOutController < ApplicationController
   end
   
   def message_list
+    SmsOut.save_messages
     @messages = SmsOut.order('send_date desc').all
   end
 end

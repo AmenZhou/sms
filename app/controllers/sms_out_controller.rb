@@ -16,6 +16,13 @@ class SmsOutController < ApplicationController
   end
   
   def update
+    respond_to do |format|
+      if @message.update(message_params)
+        format.html { redirect_to @message, notice: 'Message was successfully updated.' }
+      else
+        format.html { render action: 'edit' }
+      end
+    end
   end
   
   def show
@@ -54,6 +61,6 @@ class SmsOutController < ApplicationController
   end
   
   def message_params
-    params.require(:sms_out).permit(:message_id, :from, :to, :content, :send_date, :status)
+    params.require(:sms_out).permit(:message_id, :from, :to, :content, :send_date, :status, :is_block)
   end
 end

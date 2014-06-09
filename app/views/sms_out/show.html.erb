@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>From:</strong>
+  <%= @message.from %>
+</p>
+
+<p>
+  <strong>To:</strong>
+  <%= @message.to %>
+</p>
+
+<p>
+  <strong>Content</strong>
+  <%= @message.content %>
+</p>
+
+<p>
+  <strong>Is Block:</strong>
+  <%= @message.is_block %>
+</p>
+
+<p>
+  <strong>Send Date:</strong>
+  <%= @message.send_date %>
+</p>
+
+<%= link_to 'Edit', edit_sms_out_path(@message) %> |
+<%= link_to 'Back', message_list_path %>

@@ -36,7 +36,8 @@ class SmsOutController < ApplicationController
   end
   
   def msg_send
-    Resque.enqueue SmsJob, params[:message_body], params[:send_number]
+    numbers = SmsOut.number_filter(params[:send_number])
+    Resque.enqueue SmsJob, params[:message_body], numbers
     flash[:notice] = "Message is sending, please check the result in message list page"
     #flash[:notice] = Phone.sms_send params[:message_body], params[:send_number]
     flash.keep

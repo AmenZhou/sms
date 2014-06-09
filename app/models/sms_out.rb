@@ -47,12 +47,36 @@ class SmsOut < ActiveRecord::Base
     puts number
     block_message = SmsOut.where(from:number, is_block:true)
     
-    if block_message.count == 0
-      block_message = SmsOut.where(to:number, is_block:true)
+    
+    block_message = SmsOut.where(to:number, is_block:true) if block_message.count == 0
+    
+    unless block_message.count == 0
+      puts "***********#{number} is in the blacklist***************"
+      return true
+    end
+      
+    return false
+  end
+  
+  def self.phone_validation?(number)
+    pattern = /(\d{3}.?\d{3}.?\d{4}\s?)+/
+    if pattern.match(number).to_s != number
+      puts "**************错误：电话号码：#{number}--电话号码格式不对****************"
+      return false
+    end
+    true
+  end
+  
+  def self.number_filter(numbers)
+    numbers = numbers.split(" ")
+    filtered_number = []
+    
+    numbers.each do |number|
+      if phone_validation?(number)
+        filtered_number << number unless is_number_blocked?(number)
+      end
     end
     
-    return true unless block_message.count == 0
-    
-    return false
+    return filtered_number
   end
 end

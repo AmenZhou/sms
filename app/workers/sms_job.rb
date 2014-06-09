@@ -10,22 +10,17 @@ module SmsJob
     true
   end
   
-  def self.perform content, to_number
+  def self.perform content, numbers
     account_sid = ENV['TWILIO_ID']
     auth_token = ENV['TWILIO_TOKEN']
     max = 69
-    to_numbers = to_number.split(" ")
     notice_arr = Array.new
     content_temp = content
     message_count = 0
     url = 'http://amen-rails-65165.use1.nitrousbox.com/'
     
-   to_numbers.each do |number|
-      unless phone_validation?(number)
-        #notice << "错误：电话号码：#{number}--电话号码格式不对<br/>"
-        puts "错误：电话号码：#{number}--电话号码格式不对<br/>"
-        next
-      end
+    numbers.each do |number|
+
       while(content.length > 0)
 
         if content.length > max

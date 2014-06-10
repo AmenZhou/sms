@@ -17,7 +17,7 @@ module SmsJob
     notice_arr = Array.new
     content_temp = content
     message_count = 0
-    url = 'http://amen-rails-65165.use1.nitrousbox.com/'
+    url = ENV[:TWILIO_CALLBACK_URL]
     
     numbers.each do |number|
 

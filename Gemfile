@@ -48,7 +48,7 @@ end
 
 gem 'byebug', group: [:development, :test] 
 
-gem 'pg', group: [:production]
+gem 'mysql2', group: [:production]
 
 gem 'resque'
 

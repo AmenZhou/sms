@@ -1,11 +1,18 @@
 class SmsOut < ActiveRecord::Base
   def self.save_messages
     remote_messages = get_messages
-    local_message = SmsOut.where(to: '+16699995985').order('send_date desc').first
+    local_messages = SmsOut.where(to: '+16699995985').order('send_date desc')
     
-    remote_messages.each do |remote|
-      if remote.date_sent > local_message.send_date
-         SmsOut.create(message_id:remote.sid, from:remote.from, to:remote.to, content:remote.body, send_date:remote.date_sent, status:remote.status)
+    if local_messages.count == 0
+      remote_messages.each do |remote|
+        SmsOut.create(message_id:remote.sid, from:remote.from, to:remote.to, content:remote.body, send_date:remote.date_sent, status:remote.status)
+      end
+    else
+      remote_messages.each do |remote|
+        local_message = local_messages.first
+        if remote.date_sent > local_message.send_date
+           SmsOut.create(message_id:remote.sid, from:remote.from, to:remote.to, content:remote.body, send_date:remote.date_sent, status:remote.status)
+        end
       end
     end
   end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140609162851) do
+ActiveRecord::Schema.define(version: 20140610181935) do
 
   create_table "admins", force: true do |t|
     t.string   "email",                  default: "", null: false
@@ -46,7 +46,7 @@ ActiveRecord::Schema.define(version: 20140609162851) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "message_id"
-    t.boolean  "is_block"
+    t.boolean  "is_block",   default: false
   end
 
 end

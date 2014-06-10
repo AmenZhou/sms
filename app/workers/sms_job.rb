@@ -15,6 +15,8 @@ module SmsJob
     auth_token = ENV['TWILIO_TOKEN']
     max = 69
     notice_arr = Array.new
+    unsubscribe_str = '(Reply N to unsubscribe this message)'
+    content = content + unsubscribe_str
     content_temp = content
     message_count = 0
     url = ENV['TWILIO_CALLBACK_URL']

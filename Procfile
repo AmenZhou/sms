@@ -1,1 +1,2 @@
-resque: env TERM_CHILD=1 bundle exec rake resque:work
+web:    bundle exec rails server -e production -p 3000
+worker: bundle exec rake resque:work QUEUE=*

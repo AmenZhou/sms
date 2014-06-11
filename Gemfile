@@ -55,3 +55,5 @@ gem 'resque'
 gem 'devise'
 
 gem 'redis'
+
+gem 'foreman'

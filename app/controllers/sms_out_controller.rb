@@ -1,5 +1,5 @@
 class SmsOutController < ApplicationController
-  skip_before_filter :verify_authenticity_token, only: [:send_callback]
+  skip_before_filter :verify_authenticity_token, only: [:send_callback, :msg_send]
   before_action :authenticate_admin!, except: [:send_callback]
   before_action :set_message, only: [:show, :edit, :update, :destroy]
   

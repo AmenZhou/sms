@@ -57,3 +57,5 @@ gem 'devise'
 gem 'redis'
 
 gem 'foreman'
+
+gem 'kaminari'

@@ -1,3 +1,15 @@
 // Place all the styles related to the sms_out controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+.back-to {
+	margin:20px;
+	a {
+		font-size:18px;
+	}
+}
+
+.page-nav {
+	text-align: center;
+	margin: 20px;
+	font-size: 18px;
+}

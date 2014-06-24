@@ -1,5 +1,7 @@
 <h1>短信记录查看</h1>
-<%= link_to "返回发送界面", root_path%>
+<div class='back-to'>
+  <div><%= link_to "返回发送界面", root_path%></div>
+</div>
 <table border=1>
   <thead>
     <th>发送号码</th>
@@ -31,3 +33,6 @@
     <% end %>
   </tbody>
 </table>
+<div class='page-nav'>
+  <%= paginate @messages %>
+</div>

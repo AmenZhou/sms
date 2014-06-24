@@ -1,5 +1,5 @@
 class SmsOutController < ApplicationController
-  skip_before_filter :verify_authenticity_token, only: [:send_callback, :msg_send]
+  skip_before_filter :verify_authenticity_token, only: [:send_callback]
   before_action :authenticate_admin!, except: [:send_callback]
   before_action :set_message, only: [:show, :edit, :update, :destroy]
   
@@ -51,7 +51,7 @@ class SmsOutController < ApplicationController
   
   def message_list
     SmsOut.save_messages
-    @messages = SmsOut.order('send_date desc').all
+    @messages = SmsOut.order('send_date desc').page(params[:page])
   end
   
   def send_callback

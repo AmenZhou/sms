@@ -14,11 +14,9 @@ module SmsJob
     account_sid = ENV['TWILIO_ID']
     auth_token = ENV['TWILIO_TOKEN']
     max = 69
-    notice_arr = Array.new
     unsubscribe_str = '(Reply N to unsubscribe this message)'
     content = content + unsubscribe_str
     content_temp = content
-    message_count = 0
     url = ENV['TWILIO_CALLBACK_URL']
     
     numbers.each do |number|
@@ -39,19 +37,10 @@ module SmsJob
                                                 :from => ENV['TWILIO_PHONE'],
           :status_callback => url + 'send_callback/')
         puts "接收号码: #{number}, 短信内容: #{cont_split}<br/>" 
-        #message_count += 1
-        
-        #if message_count >= 50
-        #  SmsOut.save_messages 
-        #  message_count = 0
-        #end
-        #notice << "接收号码: #{number}, 短信内容: #{cont_split}<br/>"
         
         sleep(5)
       end
       content = content_temp
     end
-  #  SmsOut.save_messages
-   # notice
   end
 end

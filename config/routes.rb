@@ -7,6 +7,7 @@ Sms::Application.routes.draw do
   post 'send', to: 'sms_out#msg_send'
   get 'message_list', to: 'sms_out#message_list' 
   post 'send_callback', to: 'sms_out#send_callback'
+  post 'respond_checkbox', to: 'sms_out#respond_checkbox'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

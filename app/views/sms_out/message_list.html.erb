@@ -9,30 +9,42 @@
     <th>短信内容</th>
     <th>发送日期</th>
     <th>发送状态</th>
-    <th>Is Blocked</th>
+    <th>黑名单</th>
     <th>Edit</th>
     <th>Delete</th>
   </thead>
   
   <tbody>
     <% @messages.each do |message| %>
-    <% if message.status == "received"%>
-    <tr style="background-color:rgb(127, 127, 245);">
-    <% else %>
-    <tr>
-    <% end%>
-      <td><%= message.from %></td>
-      <td><%= message.to %></td>
-      <td><%= message.content %></td>
-      <td><%= (message.send_date- 4.hour).strftime('%c')  %></td>
-      <td><%= message.status %></td>
-      <td><%= message.is_block %></td>
-      <td><%= link_to 'Edit', edit_sms_out_path(message) %></td>
-      <td><%= link_to 'Destroy', message, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-    </tr>
+      <% if message.status == "received"%>
+      <tr style="background-color:rgb(127, 127, 245);">
+      <% else %>
+      <tr>
+      <% end%>
+        <td><%= message.from %></td>
+        <td><%= message.to %></td>
+        <td><%= message.content %></td>
+        <td><%= (message.send_date- 4.hour).strftime('%c')  %></td>
+        <td><%= message.status %></td>
+        <td><%= check_box_tag "is_block", message.id, message.is_block?, :onclick => "click_checkbox($(this).val());"  %></td>
+        <td><%= link_to 'Edit', edit_sms_out_path(message) %></td>
+        <td><%= link_to 'Destroy', message, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
     <% end %>
   </tbody>
 </table>
 <div class='page-nav'>
   <%= paginate @messages %>
 </div>
+<script>
+  function click_checkbox(message_id)
+  {
+    $.ajax({
+      type: 'post',
+      url: '/respond_checkbox',
+      data: {message_id: message_id}
+    }).done(function(msg){
+      alert(msg);
+    });
+  }
+</script>
